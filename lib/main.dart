@@ -54,7 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 //  final fileUri = "https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3";
-    final fileUri="https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3";
+  //final fileUri="https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3";
+    final fileUri="https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3";
   /*Duration d = await myPlayer.startPlayer
   (
   fromURI: fileUri,
@@ -91,7 +92,9 @@ class _MyHomePageState extends State<MyHomePage> {
     await myPlayer.startPlayer(
         fromURI:fileUri,
         codec: Codec.mp3,
-        whenFinished: (){setState((){});}
+        whenFinished: (){setState((){
+          print('şarkı bitti');
+        });}
     );
     setState(() {});
   }
