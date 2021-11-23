@@ -131,44 +131,17 @@ class _MyHomePageState extends State<MyHomePage> {
     final fileUri='$tempPath/Kalimba.mp3';
   }
 
-  createDir() async{
-    // Directory tempDir=Directory( '/storage/emulated/0/Download');
-    // String tempPath = tempDir.path;
-    var directory = await Directory('/storage/emulated/0/Download/subdir7/dir1').create(recursive: true);
-    print(directory.path);
-  }
-
-  deleteDir() async{
-   // var directory =await Directory('/storage/emulated/0/Download/subdir5').delete(recursive: true).whenComplete(() => print('silindi'));
-    var directory =await Directory('/storage/emulated/0/Download/subdir7').delete(recursive: true).whenComplete(() => print('silindi'));
-  }
-
-  copyFile() async{
-    File file=await File('/storage/emulated/0/Download/deneme.mp3');
-    print(file);
-    file.copy('/storage/emulated/0/Download/subdir7/deneme1.mp3').whenComplete(() => print('kopyalandi'));
-  }
-
-  deleteFile() async{
-    String filePath='/storage/emulated/0/Android/data/com.example.url_sound/files/deneme1.mp3';
-    //File file=await File('/storage/emulated/0/Android/data/com.example.url_sound/files/deneme1.mp3');
-    File file=await File(filePath);
-    file.delete().whenComplete(() => print('$file silindi'));
-  }
-
   uri35() async {
     //final response = await http.get(Uri.parse('https://s3-us-west-2.amazonaws.com/appsdeveloperblog.com/tutorials/files/cats.json'));
     //final response = await http.get(Uri.parse('https://s3-us-west-2.amazonaws.com/appsdeveloperblog.com/images/cats/cat-6.jpg'));
     //var response = await http.get(Uri.parse('https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3'));
-    var response = await http.get(Uri.parse('https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3'));
-    //var response = await http.get(Uri.parse('https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.mp3'));
+    //var response = await http.get(Uri.parse('https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3'));
+    var response = await http.get(Uri.parse('https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.mp3'));
     print('Response body: ${response.bodyBytes}');
     print(response.bodyBytes.length);
-    Directory tempDir=Directory( '/storage/emulated/0/Download');
-    String tempPath = tempDir.path;
-    //Directory? tempDir = await getExternalStorageDirectory();
-    //String tempPath = tempDir!.path;
-    var file = File('$tempPath/deneme.mp3');
+    Directory? tempDir = await getExternalStorageDirectory();
+    String tempPath = tempDir!.path;
+    var file = File('$tempPath/44100hz.mp3');
     var filePath=file.path;
     file.writeAsBytesSync(response.bodyBytes);
     print('$filePath kaydedildi.');
@@ -176,13 +149,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   pathCopy() async {
     //Directory dir35=Directory( '/storage/emulated/0/Android/data');
-    //Directory dir35=Directory( '/storage/emulated/0/DCIM');
-    Directory dir35=Directory( '/storage/emulated/0/Download');
+    Directory dir35=Directory( '/storage/emulated/0/DCIM');
     print(dir35);
     dir35.listSync().forEach((element) {
       print(element);
     });
-   /* var temDirParent=tempDir!.parent;
+    /* var temDirParent=tempDir!.parent;
     var temDirParent1=temDirParent.parent;
     print(temDirParent1);
     var temDirParent2=temDirParent1.parent;
@@ -270,23 +242,19 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    //deleteFile();
-    //copyFile();
-    //deleteDir();
-    //createDir();
     //pathCopy();
     //pathC();
     //uri35();
     //pathDir();
     // Be careful : openAudioSession return a Future.
     // Do not access your FlutterSoundPlayer or FlutterSoundRecorder before the completion of the Future
-    myPlayer.openAudioSession().then((value) {
+    /*myPlayer.openAudioSession().then((value) {
       //print(value!.);
       setState(() {
         //myPlayerIsInited=true;
       });
     });
-   play();
+   play();*/
   }
 
   @override
@@ -298,25 +266,19 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void play() async {
-    //var path35=p.windows.join('C:\\talip\\music\\a1.mp3');
+    var path35=p.windows.join('C:\\talip\\music\\a1.mp3');
     //print(path35);
-    //Directory? tempDir = await getExternalStorageDirectory();
-    //String tempPath = tempDir!.path;
+    Directory? tempDir = await getExternalStorageDirectory();
+    String tempPath = tempDir!.path;
     //String path35 = '${tempPath}/Kalimba.mp3';
     //String path35 = '${tempPath}/44100hz.mp3';
-    //storage/emulated/0/Download/subdir7/dir1'
-    String path35 =('/storage/emulated/0/Download/deneme.mp3');
-    //String path35 =('/storage/emulated/0/Android/data/com.example.url_sound/files/deneme2.mp3');
-    //String path35 ='https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3';
-    //String path35 = 'https://firebasestorage.googleapis.com/v0/b/cloud2-f6bda.appspot.com/o/music%2Fa1.mp3?alt=media&token=437bc1e0-2447-4e11-ae38-5c6684ba090f';
-    //String path35 = 'https://firebasestorage.googleapis.com/v0/b/cloud2-f6bda.appspot.com/o/music%2Fa2.mp3?alt=media&token=d3e311bc-6efe-48b4-b5d3-6fd59fc2d411';
-    //await myPlayer.setVolume(0.9);
-    setState(() {
-       myPlayer.setVolume(1.0);
-    });
+    //String path35 = '/storage/emulated/0/Android/data/com.example.url_sound/files/Kalimba.mp3';
+    //String path35 = 'C:\talip\music\a1.mp3';
+    await myPlayer.setVolume(0.9);
     await myPlayer.startPlayer(
         fromURI: path35,
-    codec: Codec.mp3,
+        // fromURI:'file:///storage/emulated/0/Android/data/com.example.url_sound/files/deneme1.mp3',
+        codec: Codec.mp3,
         whenFinished: () {
           setState(() {
             print('şarkı bitti');
